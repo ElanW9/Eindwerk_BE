@@ -3,31 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+// use Illuminate\Support\Facades\Validator;
 use App\Models\Fighter;
+
 
 class FighterController extends Controller
 {
     public function index()
     {
-        $fighters = Fighter::all();
-        return response()->json($fighters);
+        $fighter = Fighter::all();
+        return response()->json($fighter);
     }
 
-    public function store(Request $request)
+    public function store(Fighter $fighter)
     {
         $fighter = new Fighter;
         $fighter->save();
         return response()->json($fighter, 201);
     }
 
-    public function show($id)
+    public function show(Fighter $fighter)
     {
-        $fighter = Fighter::findOrFail($id);
-        return response()->json($fighter);
+        return $fighter;
     }
 
-    public function update(Request $request, $id)
+    public function update(Fighter $fighter, $id)
     {
         $fighter = Fighter::findOrFail($id);
         $fighter->save();

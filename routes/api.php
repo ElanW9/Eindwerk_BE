@@ -2,36 +2,31 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FighterController;
+use App\Http\Controllers\MartialArtsController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
 
 // Route::group(['middleware' => ['scribe_routes']], function () {
 //     Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //         return $request->user();
 //     });
 
-//     Route::get('/fighters', 'FighterController@index');
-//     Route::post('/fighters', 'FighterController@store');
-//     Route::get('/fighters/{id}', 'FighterController@show');
-//     Route::put('/fighters/{id}', 'FighterController@update');
-//     Route::delete('/fighters/{id}', 'FighterController@destroy');
-// });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/fighters', 'FighterController@index');
-Route::post('/fighters', 'FighterController@store');
-Route::get('/fighters/{id}', 'FighterController@show');
-Route::put('/fighters/{id}', 'FighterController@update');
-Route::delete('/fighters/{id}', 'FighterController@destroy');
+Route::prefix('fighters')->group(function () {
+
+    Route::get('/', [FighterController::class, 'index']);
+    Route::post('/', [FighterController::class, 'store']);
+    Route::get('/{fighter}', [FighterController::class, 'show']);
+    Route::put('/{fighter}', [FighterController::class, 'update']);
+    Route::delete('/{fighter}', [FighterController::class, 'destroy']);
+});
+
+Route::prefix('martial_arts')->group(function () {
+
+    Route::get('/', [MartialArtsController::class, 'index']);
+    Route::get('/{martial_art}', [MartialArtsController::class, 'show']);
+});
