@@ -27,6 +27,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('fighters');
-        Schema::dropIfExists('martial_art');
     }
 };

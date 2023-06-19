@@ -9,7 +9,7 @@ class Fighter extends Model
 {
     use HasFactory;
 
-    // protected $fillable = [
-    //     'title', 'body'
-    // ];
+    protected $fillable = [
+        'username', 'age', 'weight', 'height', 'experience'
+    ];
 }
