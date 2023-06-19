@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fighters', function (Blueprint $table) {
+        Schema::create('martial_arts', function (Blueprint $table) {
             $table->id();
-            $table->string('username');
-            $table->decimal('age', 2, 0);
-            $table->decimal('weight', 3, 0);
-            $table->decimal('height', 3, 0);
-            $table->string('experience', 300);
+            $table->string('name');
         });
     }
 
@@ -26,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fighters');
+        Schema::dropIfExists('martial_arts');
     }
 };

@@ -5,11 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Fighter extends Model
+class MartialArt extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'username', 'age', 'weight', 'height', 'experience'
-    ];
+    protected $table = 'martial_arts';
 }

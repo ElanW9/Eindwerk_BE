@@ -6,38 +6,72 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Fighter;
 
+
 class FighterController extends Controller
 {
     public function index()
     {
-        $fighters = Fighter::all();
-        return response()->json($fighters);
+        $fighter = Fighter::all();
+        return response()->json($fighter);
     }
 
     public function store(Request $request)
     {
-        $fighter = new Fighter;
-        $fighter->save();
-        return response()->json($fighter, 201);
+        $validator = Validator::make($request->all(), [
+            'username' => 'string|required|max:25',
+            'age' => 'nullable|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return $validator->errors()->toJson();
+        }
+        $status = Fighter::create([
+            'username' => request('username'),
+            'age' => request('age'),
+            'weight' => request('weight'),
+            'height' => request('height'),
+            'experience' => request('experience')
+        ]);
+
+        return [
+            'success' => $status
+        ];
     }
 
-    public function show($id)
+    public function show(Fighter $fighter)
     {
-        $fighter = Fighter::findOrFail($id);
-        return response()->json($fighter);
+        return $fighter;
     }
 
-    public function update(Request $request, $id)
+    public function update(Fighter $fighter, Request $request)
     {
-        $fighter = Fighter::findOrFail($id);
-        $fighter->save();
-        return response()->json($fighter);
+        $validator = Validator::make($request->all(), [
+            'username' => 'string|required|max:25',
+            'age' => 'nullable|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return $validator->errors()->toJson();
+        }
+        $status = $fighter->update([
+            'username' => request('username'),
+            'age' => request('age'),
+            'weight' => request('weight'),
+            'height' => request('height'),
+            'experience' => request('experience')
+        ]);
+
+        return [
+            'success' => $status
+        ];
     }
 
-    public function destroy($id)
+    public function destroy(Fighter $fighter)
     {
-        $fighter = Fighter::findOrFail($id);
-        $fighter->delete();
-        return response()->json(null, 204);
+        $status = $fighter->delete();
+
+        return [
+            'status' => $status
+        ];
     }
 }
