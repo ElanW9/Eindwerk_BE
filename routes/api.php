@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FighterController;
 use App\Http\Controllers\MartialArtsController;
 use App\Http\Controllers\ImageController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
+
 
 
 // Route::group(['middleware' => ['scribe_routes']], function () {
