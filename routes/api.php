@@ -7,15 +7,24 @@ use App\Http\Controllers\MartialArtsController;
 use App\Http\Controllers\ImageController;
 
 
+
 // Route::group(['middleware' => ['scribe_routes']], function () {
 //     Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //         return $request->user();
 //     });
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+    Route::post('/logout', function (Request $request) {
+        $request->user()->tokens()->delete();
+        return response()->json(['message' => 'Logged out successfully']);
+    });
 });
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
 Route::prefix('fighters')->group(function () {
 

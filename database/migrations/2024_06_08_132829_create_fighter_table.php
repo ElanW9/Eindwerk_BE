@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('fighters', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('users_id')->constrained('users');
+            $table->foreignId('images_id')->constrained('images');
+            $table->foreignId('martial_arts_id')->constrained('martial_arts');
             $table->string('username');
             $table->decimal('age', 2, 0);
             $table->decimal('weight', 3, 0);
